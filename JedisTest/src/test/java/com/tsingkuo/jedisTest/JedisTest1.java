@@ -2,10 +2,7 @@ package com.tsingkuo.jedisTest;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.junit.Test;
-import redis.clients.jedis.BinaryClient;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +18,10 @@ public class JedisTest1 {
      * 单例连接，并添加、查询数据
      */
     public void jedisTest() {
-        Jedis jedis = new Jedis("192.168.0.105", 6379);
+        JedisShardInfo shardInfo = new JedisShardInfo("127.0.0.1", "6379");
+        shardInfo.setPassword("ShLjyF7VI5wrzNIYjx52zR09CiGWMaGx");
+//        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        Jedis jedis = new Jedis(shardInfo);
         jedis.set("name", "a;lsdkja;lsdkfj");
         System.out.println(jedis.get("name"));
         jedis.close();
@@ -38,7 +38,7 @@ public class JedisTest1 {
         jedisPoolConfig.setMaxIdle(10);
 
         //通过配置文件跟host\port来创建一个连接池对象
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig, "192.168.0.105", 6379);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, "192.168.1.9", 6379);
 
         //通过.getResource()方法来创建一个Jedis对象
         Jedis jedis = jedisPool.getResource();
@@ -54,7 +54,7 @@ public class JedisTest1 {
      * 通过单例连接，来测试hash类型的存储、取值、删除等等操作
      */
     public void jedisHashTest() {
-        Jedis jedis = new Jedis("192.168.0.105", 6379);
+        Jedis jedis = new Jedis("192.168.1.9", 6379);
         jedis.hset("teacher", "name", "tim");
         Map<String, String> map = new HashMap<String, String>();
         map.put("age", "18");
@@ -87,7 +87,7 @@ public class JedisTest1 {
      * 通过单例连接，来测试list类型的存储、取值、删除等操作
      */
     public void jedisListTest() {
-        Jedis jedis = new Jedis("192.168.0.105", 6379);
+        Jedis jedis = new Jedis("192.168.1.9", 6379);
         jedis.lpush("mylist", "a", "b", "c");
         jedis.rpush("mylist", "1", "2", "3");
         System.out.println(jedis.lrange("mylist", 0, -1));
@@ -113,7 +113,7 @@ public class JedisTest1 {
      * 通过单例连接，来测试set类型的存储、取值、删除等操作
      */
     public void jedisSetTest() {
-        Jedis jedis = new Jedis("192.168.0.105", 6379);
+        Jedis jedis = new Jedis("192.168.1.9", 6379);
         System.out.println(jedis.sadd("myset", "1", "2", "3"));
         System.out.println(jedis.sadd("myset", "1", "2", "3"));
         System.out.println(jedis.sadd("myset", "a", "b", "c"));
@@ -141,7 +141,7 @@ public class JedisTest1 {
      * 通过单例连接，来测试sorted-set类型的存储，取值，删除等操作
      */
     public void jedisSortedSetTest() {
-        Jedis jedis = new Jedis("192.168.0.105", 6379);
+        Jedis jedis = new Jedis("192.168.1.9", 6379);
 //        jedis.select(1)
         System.out.println(jedis.zadd("mysort", 60, "guoqing"));
         Map<String, Double> map = new HashMap<String, Double>();
