@@ -18,10 +18,10 @@ public class JedisTest1 {
      * 单例连接，并添加、查询数据
      */
     public void jedisTest() {
-        JedisShardInfo shardInfo = new JedisShardInfo("127.0.0.1", "6379");
-        shardInfo.setPassword("ShLjyF7VI5wrzNIYjx52zR09CiGWMaGx");
-//        Jedis jedis = new Jedis("127.0.0.1", 6379);
-        Jedis jedis = new Jedis(shardInfo);
+//        JedisShardInfo shardInfo = new JedisShardInfo("127.0.0.1", "6379");
+//        shardInfo.setPassword("ShLjyF7VI5wrzNIYjx52zR09CiGWMaGx");
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+//        Jedis jedis = new Jedis(shardInfo);
         jedis.set("name", "a;lsdkja;lsdkfj");
         System.out.println(jedis.get("name"));
         jedis.close();
