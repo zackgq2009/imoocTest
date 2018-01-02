@@ -1,0 +1,5 @@
+com/tsingkuo/hadoop/mapreduce/MapReduceApp.class
+com/tsingkuo/hadoop/mapreduce/MapReduceApp$WCReducer.class
+com/tsingkuo/hadoop/mapreduce/MapReduceApp$WCMapper.class
+com/tsingkuo/hadoop/App.class
+com/tsingkuo/hadoop/mapreduce/MapReduceApp$WCPartitioner.class
